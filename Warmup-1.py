@@ -125,9 +125,19 @@ class Warmup1:
         newstring = str[-1:] + str[1:-1] + str[:1]
         return newstring
 
-    
-        
+    @staticmethod
+    def front3(str):
+        """return a new string with n copies of the first 3 characters
+    """
+        n = 3
+        if(len(str) < 3):
+            newstring = str
+        else:
+            newstring = str[:3]
+        newstring *= n
+        return newstring
 
+    
     
 # Here's our "unit tests".
 class WarmupTests(unittest.TestCase):
@@ -189,12 +199,17 @@ class WarmupTests(unittest.TestCase):
         self.assertEqual(self.obj.missing_char('kitten', 1) , 'ktten')
         self.assertEqual(self.obj.missing_char('kitten', 0) , 'itten')
         self.assertEqual(self.obj.missing_char('kitten', 4) , 'kittn')
-#tests for front_back
+    #tests for front_back
     def test11(self):
         self.assertEqual(self.obj.front_back('code') , 'eodc')
         self.assertEqual(self.obj.front_back('a') , 'a')
         self.assertEqual(self.obj.front_back('ab') , 'ba')
-
+    #tests for front3
+    def test12(self):
+        self.assertEqual(self.obj.front3('Java'), 'JavJavJav')
+        self.assertEqual(self.obj.front3('at'), 'atatat')
+        self.assertEqual(self.obj.front3('xyz'), 'xyzxyzxyz')
+        
 
 def main():
     unittest.main()
