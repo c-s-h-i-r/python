@@ -81,7 +81,54 @@ class List1:
             return []
         maximum = max(nums[0], nums[n-1])
         return [maximum] * n
-        
+    @staticmethod
+    def sum2(nums):
+        """
+        nums -- array of ints
+        Returns the sum of the first two elements of the array. [Or whatever is there]
+        """
+        sum = 0
+        for index, x in enumerate(nums):
+            if(index > 1):
+                break
+            sum += x
+        return sum
+    @staticmethod
+    def middle_way(a, b):
+        """
+        a, b -- integer arrays
+        Returns a new array of length 2 containing their middle elements.
+        Raises MyError is a list is empty.
+        """
+        lenA = len(a)
+        lenB = len(b)
+        if(lenA < 1 or lenB < 1):
+            raise MyError("Error: lists cannot be empty.")
+        return [a[(lenA-1)//2], b[(lenB-1)//2]]
+    @staticmethod
+    def make_ends(nums):
+        """
+        nums -- integer array
+        Returns a new array length 2 containing the first and last elements in the nums array.
+        """
+        n = len(nums)
+
+        if(n < 2):
+            newArray = nums * 2
+        else:
+            newArray = [nums[0], nums[n-1]]
+        return newArray
+    @staticmethod
+    def has23(nums):
+        """
+        nums -- integer array
+        Returns True if contains 2 or 3.
+        """
+        for x in nums:
+            if(x == 2 or x == 3):
+                return True
+        return False
+    
 # Here's our unit tests.
 class ListTests(unittest.TestCase):
     obj = List1()
@@ -116,22 +163,22 @@ class ListTests(unittest.TestCase):
         self.assertEqual(self.obj.max_end([]), [])
         self.assertEqual(self.obj.max_end([1,2,3]), [3,3,3])
         self.assertEqual(self.obj.max_end([1,2,3,4,2,1]), [1,1,1,1,1,1])
-#    def test9(self):
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#    def test10(self):
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#    def test11(self):
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#    def test12(self):
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
-#        self.assertEqual(self.obj.)
+    def test9(self):
+        self.assertEqual(self.obj.sum2([1,2,3]), 3)
+        self.assertEqual(self.obj.sum2([]), 0)
+        self.assertEqual(self.obj.sum2([-1, 34, 0, 2]), 33)
+    def test10(self):
+        self.assertEqual(self.obj.middle_way([1,2,3],[4,5,6]), [2,5])
+        self.assertEqual(self.obj.middle_way([0,1],[4,4,5,3]), [0,4])
+        self.assertRaises(MyError, lambda: self.obj.middle_way([], [0,123,123,234,4]))
+    def test11(self):
+        self.assertEqual(self.obj.make_ends([1,2,3]), [1,3])
+        self.assertEqual(self.obj.make_ends([]), [])
+        self.assertEqual(self.obj.make_ends([1,1,1,1,4,5]),[1,5])
+    def test12(self):
+        self.assertEqual(self.obj.has23([2,5]), True)
+        self.assertEqual(self.obj.has23([4,3]), True)
+        self.assertEqual(self.obj.has23([2.5, 0]), False)
 def main():
     unittest.main()
     
