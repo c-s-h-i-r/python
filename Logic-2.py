@@ -32,11 +32,18 @@ class Logic2:
         Return their sum.
         If a value is 13 then don't count it or the value to the right.
         """
-        return 0
+        numbersToSum = [a,b,c]
+        sum = 0
+        for x in numbersToSum:
+            if x == 13:
+                break
+            else:
+                sum += x
+        return sum
         
     @staticmethod
     def make_bricks(small, big, goal):
-        #small-1, big=5
+        #small-1, big=5 can we make goal with small and big?
         smallbigs = 0
         if small > 5:
             smallbigs = small / 5
