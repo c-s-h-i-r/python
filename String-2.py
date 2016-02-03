@@ -16,6 +16,7 @@ class String2:
         return res
   
     def count_hi(str):
+        ''''''
         count = 0
   
         for x in xrange(0, len(str)-1):
@@ -23,16 +24,27 @@ class String2:
                 if len(str) > x and str[x+1] == 'i':
                     count += 1
         return count
-        def cat_dog(str):
-  
-    countcat = 0
-    countdog = 0
-    for x in xrange(0, len(str)-1):
-            if len(str) > x+3 and str[x:x+3] == 'cat':
-                countcat += 1
-            if len(str) > x+3 and str[x:x+3] == 'dog':
-                countdog += 1
-    return countcat == countdog
+    
+    def cat_dog(str):
+        ''''''
+        catCount = 0
+        dogCount = 0
+
+        for i in range(len(str)-1):
+            if str[i:i+3] == 'cat':
+                catCount += 1
+            if str[i:i+3] == 'dog':
+                dogCount += 1
+        return dogCount == catCount
+
+    def count_code(str):
+        count = 0
+        for i in range(len(str)-1):
+            if str[i:i+2] == 'co':
+                if str[i+3:i+4] == 'e':
+                    count += 1  
+        return count
+        
 # Here's our unit tests.
 class StringTests(unittest.TestCase):
     obj = String2()
