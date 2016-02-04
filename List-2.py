@@ -53,6 +53,35 @@ class List2:
                 count += 1
         return count
     
+    @staticmethod
+    def sum13(nums):
+        '''Return the sum of the numbers in the array, returning 0 for an empty array. Except the number 13 is very unlucky, so it does not count and numbers that come immediately after a 13 also do not count.
+        '''
+        if len(nums) < 1:
+            return 0
+        sum = 0
+        nums_iter = iter(nums)
+        for i in nums_iter:
+            if i == 13:
+                next(nums_iter, None)
+                next(nums_iter)
+            else:
+                sum += i
+        return sum
+    
+    def sum13_withoutiter(nums):
+        '''Return the sum of the numbers in the array, returning 0 for an empty array. Except the number 13 is very unlucky, so it does not count and numbers that come immediately after a 13 also do not count.
+        '''
+        count = 0
+        while count < len(nums):
+            if nums[count] == 13:
+                del nums[count:count+2]
+                continue
+            count += 1
+        return sum(nums)
+
+
+    
 # Here's our unit tests.
 class ListTests(unittest.TestCase):
     obj = List2()
@@ -61,6 +90,9 @@ class ListTests(unittest.TestCase):
         self.assertEqual(self.obj.centered_average([1,2,3,4,100]), 3)
     def test2(self):
         self.assertEqual(self.obj.count_hi('abc hi ho'), 1)
+    def test_sum13(self):
+        self.assertEqual(self.obj.sum13([1,2,2,1]), 6)
+        
 def main():
     unittest.main()
     
