@@ -84,8 +84,8 @@ class Logic2:
         Given 3 int values, a b c, return their sum. However, if any of the values is a teen -- in the range 13..19 inclusive -- then that value counts as 0, except 15 and 16 do not count as a teens. 
         '''
         l = map(Logic2.fix_teen, [a,b,c])
-        print l 
         return sum(l)
+    
     @staticmethod
     def fix_teen(n):
         ''' takes an int value and returns that value fixed for the teen rule.
@@ -118,12 +118,22 @@ class Logic2:
         
     @staticmethod
     def make_chocolate(small, big, goal):
-        '''We want make a package of goal kilos of chocolate. 
+        '''We want to make a package of goal kilos of chocolate. 
         We have small bars (1 kilo each) and big bars (5 kilos 
         each). Return the number of small bars to use, assuming 
         we always use big bars before small bars. 
         Return -1 if it can't be done. 
         '''
+        
+        if big *5 > goal:
+            smallNeeded = goal % 5
+        else:
+            smallNeeded = goal - (big*5)
+        
+        if small - smallNeeded  >= 0:
+            return smallNeeded
+        return -1
+            
         
 # Unit tests.
 class LogicTests(unittest.TestCase):
@@ -158,7 +168,7 @@ class LogicTests(unittest.TestCase):
         self.assertEqual(self.obj.close_far(4, 1, 3), True)
     def test_make_chocolate(self):
         self.assertEqual(self.obj.make_chocolate(4, 1, 9), 4)
-        self.assertEqual(self.obj.make_chocolate(4, 1, 10), 1)
+        self.assertEqual(self.obj.make_chocolate(4, 1, 10), -1)
         self.assertEqual(self.obj.make_chocolate(4, 1, 7), 2)
         
         
