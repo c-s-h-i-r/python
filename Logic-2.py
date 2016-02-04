@@ -112,7 +112,18 @@ class Logic2:
     def close_far(a,b,c):
         '''Given three ints,a b c, return True if one of b or c is "close" (differing from a by at most 1), while the other is "far", differing from both other values by 2 or more.
         '''
+        if (abs(a-b) < 2 and abs(a-c) > 1 and abs(b-c) > 1) or ( abs(a-c) < 2 and abs(a-b) > 1 and abs(b-c) > 1):
+            return True
+        return False
         
+    @staticmethod
+    def make_chocolate(small, big, goal):
+        '''We want make a package of goal kilos of chocolate. 
+        We have small bars (1 kilo each) and big bars (5 kilos 
+        each). Return the number of small bars to use, assuming 
+        we always use big bars before small bars. 
+        Return -1 if it can't be done. 
+        '''
         
 # Unit tests.
 class LogicTests(unittest.TestCase):
@@ -145,7 +156,10 @@ class LogicTests(unittest.TestCase):
         self.assertEqual(self.obj.close_far(1, 2, 10), True)
         self.assertEqual(self.obj.close_far(1, 2, 3), False)
         self.assertEqual(self.obj.close_far(4, 1, 3), True)
-        
+    def test_make_chocolate(self):
+        self.assertEqual(self.obj.make_chocolate(4, 1, 9), 4)
+        self.assertEqual(self.obj.make_chocolate(4, 1, 10), 1)
+        self.assertEqual(self.obj.make_chocolate(4, 1, 7), 2)
         
         
 def main():
