@@ -7,7 +7,7 @@ class MyError(Exception):
     def __str__(self):
         return repr(self.value)
 
-#List-1 methods codingbat
+#Logic-2 methods codingbat
 class Logic2:
     @staticmethod
     def lone_sum(a, b, c):
@@ -77,6 +77,42 @@ class Logic2:
                     return True
                 else:
                     return False
+    
+    @staticmethod
+    def no_teen_sum(a, b, c):
+        '''
+        Given 3 int values, a b c, return their sum. However, if any of the values is a teen -- in the range 13..19 inclusive -- then that value counts as 0, except 15 and 16 do not count as a teens. 
+        '''
+        l = map(Logic2.fix_teen, [a,b,c])
+        print l 
+        return sum(l)
+    @staticmethod
+    def fix_teen(n):
+        ''' takes an int value and returns that value fixed for the teen rule.
+        '''
+        if not ( 20 > n > 12) or n in (15,16):
+            return n
+        return 0
+        
+    @staticmethod
+    def round_sum(a,b,c):
+        '''
+        Given 3 ints, a b c, return the sum of their rounded values. 
+        '''
+        return sum(map(Logic2.round10, [a,b,c]))
+
+    @staticmethod
+    def round10(num):
+        '''
+        round an int value up to the next multiple of 10 if its rightmost digit is 5 or more, so 15 rounds up to 20. Alternately, round down to the previous multiple of 10 if its rightmost digit is less than 5, so 12 rounds down to 10.
+        '''
+        return int(round(num, -1))
+               
+    @staticmethod
+    def close_far(a,b,c):
+        '''Given three ints,a b c, return True if one of b or c is "close" (differing from a by at most 1), while the other is "far", differing from both other values by 2 or more.
+        '''
+        
         
 # Unit tests.
 class LogicTests(unittest.TestCase):
@@ -97,6 +133,18 @@ class LogicTests(unittest.TestCase):
         self.assertEqual(self.obj.make_bricks(7,1,8),True)
         self.assertEqual(self.obj.make_bricks(3,2,10),True)
         self.assertEqual(self.obj.make_bricks(7,1,13),False)
+    def test_no_teen_sum(self):
+        self.assertEqual(self.obj.no_teen_sum(1, 2, 3), 6)
+        self.assertEqual(self.obj.no_teen_sum(2, 13, 1), 3)
+        self.assertEqual(self.obj.no_teen_sum(2, 1, 14), 3)
+    def test_round_sum(self):
+        self.assertEqual(self.obj.round_sum(16, 17, 18), 60)
+        self.assertEqual(self.obj.round_sum(12, 13, 14), 30)
+        self.assertEqual(self.obj.round_sum(6, 4, 4), 10)
+    def test_close_far(self):
+        self.assertEqual(self.obj.close_far(1, 2, 10), True)
+        self.assertEqual(self.obj.close_far(1, 2, 3), False)
+        self.assertEqual(self.obj.close_far(4, 1, 3), True)
         
         
         
